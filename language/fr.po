@@ -266,7 +266,7 @@ msgid "%d items (admin)"
 msgstr "%d contenus (admin)"
 
 #: view/contact-us/admin/contact-message/show-details.phtml:52
-#, fuzzy, php-format
+#, php-format
 msgid "%d items (public)"
 msgstr "%d contenus (public)"
 
