@@ -1,10 +1,8 @@
 <?php declare(strict_types=1);
 
-$genericDir = file_exists(dirname(__DIR__, 2) . '/Generic/ModuleTester.php')
-    ? dirname(__DIR__, 2)
-    : __DIR__;
-require_once $genericDir . '/Generic/TesterTrait.php';
-require_once $genericDir . '/Generic/ModuleTester.php';
+require_once __DIR__ . '/Generic/TesterTrait.php';
+require_once __DIR__ . '/Generic/ModuleTester.php';
+require_once __DIR__ . '/ContactUsTest/ContactUsTestTrait.php';
 
 $moduleName = basename(dirname(__DIR__));
 $tester = new \Generic\ModuleTester($moduleName);

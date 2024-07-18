@@ -27,8 +27,6 @@ Installation
 
 See general end user documentation for [installing a module].
 
-The module [Common] must be installed first.
-
 If you use an old theme, you can install [Blocks Disposition] too.
 
 You may use the release zip to install it or clone the source via git.

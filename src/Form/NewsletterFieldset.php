@@ -4,7 +4,6 @@ namespace ContactUs\Form;
 
 use Laminas\Form\Element;
 use Laminas\Form\Fieldset;
-use Omeka\Form\Element as OmekaElement;
 
 /**
  * @see \Access\Form\AccessRequestFieldset

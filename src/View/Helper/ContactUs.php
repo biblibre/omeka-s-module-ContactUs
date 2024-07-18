@@ -2,7 +2,6 @@
 
 namespace ContactUs\View\Helper;
 
-use Common\Stdlib\PsrMessage;
 use ContactUs\Form\ContactUsForm;
 use ContactUs\Form\NewsletterForm;
 use Laminas\Form\FormElementManager;
@@ -12,6 +11,7 @@ use Laminas\View\Helper\AbstractHelper;
 use Omeka\Mvc\Controller\Plugin\Api;
 use Omeka\Mvc\Controller\Plugin\Messenger;
 use Omeka\Stdlib\Mailer;
+use Omeka\Stdlib\Message;
 
 /**
  * @see \Access\Site\BlockLayout\AccessRequest
@@ -219,17 +219,17 @@ class ContactUs extends AbstractHelper
                 // Status is checked below.
                 $status = 'success';
                 if ($newsletterOnly) {
-                    $message = new PsrMessage(
+                    $message = new Message(
                         'Thank you for subscribing to our newsletter.' // @translate
                     );
                 } else {
-                    $message = new PsrMessage(
+                    $message = new Message(
                         $isContactAuthor
-                            ? 'Thank you for your message {name}. It will be sent to the author as soon as possible.' // @translate
-                            : 'Thank you for your message {name}. We will answer you as soon as possible.', // @translate
+                            ? 'Thank you for your message %s. It will be sent to the author as soon as possible.' // @translate
+                            : 'Thank you for your message %s. We will answer you as soon as possible.', // @translate
                         $submitted['name']
-                            ? ['name' => sprintf('%s (%s)', $submitted['name'], $submitted['from'])]
-                            : ['name' => $submitted['from']]
+                            ? sprintf('%s (%s)', $submitted['name'], $submitted['from'])
+                            : $submitted['from']
                     );
                 }
 
@@ -278,9 +278,9 @@ class ContactUs extends AbstractHelper
                     // TODO Map errors key with form (keep original keys of the form).
                     $this->messenger->addFormErrors($form);
                     $status = 'error';
-                    $message = new PsrMessage(
-                        'There is an error: {errors}', // @translate
-                        ['errors' => implode(", \n", $errorMessages)]
+                    $message = new Message(
+                        'There is an error: %s', // @translate
+                        implode(", \n", $errorMessages)
                     );
                     $defaultForm = false;
                 }
@@ -314,11 +314,11 @@ class ContactUs extends AbstractHelper
 
                     // Message to author (with copy to administrators if set).
                     if ($isContactAuthor) {
-                        $message = new PsrMessage(
-                            'Thank you for your message {name}. Check your confirmation mail. The author will receive it soon.', // @translate
+                        $message = new Message(
+                            'Thank you for your message %s. Check your confirmation mail. The author will receive it soon.', // @translate
                             $submitted['name']
-                                ? ['name' => sprintf('%1$s (%2$s)', $submitted['name'], $submitted['from'])]
-                                : ['name' => $submitted['from']]
+                                ? sprintf('%1$s (%2$s)', $submitted['name'], $submitted['from'])
+                                : $submitted['from']
                         );
 
                         $notifyRecipients = $this->getNotifyRecipients($options);
@@ -349,7 +349,7 @@ class ContactUs extends AbstractHelper
                         $result = $this->sendEmail($mail);
                         if (!$result) {
                             $status = 'error';
-                            $message = new PsrMessage(
+                            $message = new Message(
                                 'Sorry, we are not able to send the email to the author.' // @translate
                             );
                         }
@@ -372,23 +372,23 @@ class ContactUs extends AbstractHelper
                         $result = $this->sendEmail($mail);
                         if (!$result) {
                             $status = 'error';
-                            $message = new PsrMessage(
+                            $message = new Message(
                                 'Sorry, the message is recorded, but we are not able to notify the admin at once. You may come back later if you don’t receive answer.' // @translate
                             );
                         }
                         // Send the confirmation message to the visitor.
                         elseif ($options['confirmation_enabled']) {
                             if ($newsletterOnly) {
-                                $message = new PsrMessage(
-                                    'Thank you for subscribing to our newsletter. Check the confirmation email sent to {email}.', // @translate
-                                    ['email' => $submitted['from']]
+                                $message = new Message(
+                                    'Thank you for subscribing to our newsletter. Check the confirmation email sent to %s.', // @translate
+                                    $submitted['from']
                                 );
                             } else {
-                                $message = new PsrMessage(
-                                    'Thank you for your message {name}. Check your confirmation email. We will answer you soon.', // @translate
+                                $message = new Message(
+                                    'Thank you for your message %s. Check your confirmation email. We will answer you soon.', // @translate
                                     $submitted['name']
-                                        ? ['name' => sprintf('%1$s (%2$s)', $submitted['name'], $submitted['from'])]
-                                        : ['name' => $submitted['from']]
+                                        ? sprintf('%1$s (%2$s)', $submitted['name'], $submitted['from'])
+                                        : $submitted['from']
                                 );
                             }
 
@@ -412,7 +412,7 @@ class ContactUs extends AbstractHelper
                             $result = $this->sendEmail($mail);
                             if (!$result) {
                                 $status = 'error';
-                                $message = new PsrMessage(
+                                $message = new Message(
                                     'Sorry, we are not able to send the confirmation email.' // @translate
                                 );
                             }
@@ -431,11 +431,11 @@ class ContactUs extends AbstractHelper
                 $this->messenger->addFormErrors($form);
                 $status = 'error';
                 $message = count($errorMessages)
-                    ? new PsrMessage(
-                        'There is an error: {errors}', // @translate
-                        ['errors' => implode(", \n", $errorMessages)]
+                    ? new Message(
+                        'There is an error: %s', // @translate
+                        implode(", \n", $errorMessages)
                     )
-                    : new PsrMessage(
+                    : new Message(
                         'There is an error.' // @translate
                     );
                 $defaultForm = false;
@@ -495,7 +495,7 @@ class ContactUs extends AbstractHelper
                 'heading' => $options['heading'],
                 'html' => $options['html'],
                 'form' => $form,
-                'message' => $message ? $message->setTranslator($view->translator()) : null,
+                'message' => $message ? $message : null,
                 'status' => $status,
                 'resource' => $options['resource'],
                 'contact' => $isContactAuthor ? 'author' : 'us',
@@ -594,7 +594,7 @@ SQL;
     protected function checkSpam(array $options, array $params): bool
     {
         $session = new Container('ContactUs');
-        $question = isset($session->question) ? $session->question : null;
+        $question = $session->question ?? null;
         return empty($question)
             || !isset($options['questions'][$question])
             || empty($params['check'])
@@ -748,8 +748,10 @@ SQL;
             return true;
         } catch (\Exception $e) {
             $view->logger()->err(
-                'Error when sending email. Arguments:\n{json}', // @translate
-                ['json' => json_encode($params, 448)]
+                sprintf(
+                    'Error when sending email. Arguments:\n%s', // @translate
+                    json_encode($params, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)
+                )
             );
             return false;
         }

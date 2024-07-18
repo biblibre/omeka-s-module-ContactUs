@@ -44,8 +44,6 @@ return [
         'invokables' => [
             Form\ContactUsFieldset::class => Form\ContactUsFieldset::class,
             Form\NewsletterFieldset::class => Form\NewsletterFieldset::class,
-            Form\SettingsFieldset::class => Form\SettingsFieldset::class ,
-            Form\SiteSettingsFieldset::class => Form\SiteSettingsFieldset::class,
         ],
         'factories' => [
             Form\ContactUsForm::class => Service\Form\FormFactory::class,
@@ -144,95 +142,6 @@ return [
         'The contact message doesn’t exist.', // @translate
     ],
     'contactus' => [
-        'settings' => [
-            'contactus_notify_recipients' => [],
-            'contactus_author' => 'disabled',
-            'contactus_author_only' => false,
-            'contactus_send_with_user_email' => false,
-            'contactus_create_zip' => 'original',
-            'contactus_delete_zip' => 30,
-        ],
-        'site_settings' => [
-            'contactus_notify_recipients' => [],
-            'contactus_notify_subject' => '',
-            'contactus_notify_body' => 'A user has contacted you.
-
-email: {email}
-name: {name}
-ip: {ip}
-
-{newsletter}
-subject: {subject}
-message:
-
-{message}', // @translate
-            'contactus_confirmation_enabled' => true,
-            'contactus_confirmation_subject' => 'Confirmation contact', // @translate
-            'contactus_confirmation_body' => 'Hi {name},
-
-Thanks to contact us!
-
-We will answer you as soon as possible.
-
-Sincerely,
-
-{main_title}
-{main_url}
-
---
-
-{newsletter}
-Your message:
-Subject: {subject}
-
-{message}', // @translate
-            'contactus_confirmation_newsletter_subject' => 'Subscription to newsletter of {main_title}', // @translate
-            'contactus_confirmation_newsletter_body' => 'Hi,
-
-Thank you for subscribing to our newsletter.
-
-Sincerely,', // @translate
-            'contactus_to_author_subject' => 'Message to the author', // @translate
-            'contactus_to_author_body' => 'Hi {user_name},
-
-The visitor {name} ({email} made the following request about a resource on {main_title}:
-
-Thanks to reply directly to the email above and do not use "reply".
-
-Sincerely,
-
---
-
-From: {name} <{email}>
-Subject: {subject}
-
-{message}', // @translate
-            'contactus_antispam' => true,
-            'contactus_questions' => [
-                'How many are zero plus 1 (in number)?' // @translate
-                    => '1',
-                'How many are one plus 1 (in number)?' // @translate
-                    => '2',
-                'How many are one plus 2 (in number)?' // @translate
-                    => '3',
-                'How many are one plus 3 (in number)?' // @translate
-                    => '4',
-                'How many are two plus 1 (in number)?' // @translate
-                    => '3',
-                'How many are two plus 2 (in number)?' // @translate
-                    => '4',
-                'How many are two plus 3 (in number)?' // @translate
-                    => '5',
-                'How many are three plus 1 (in number)?' // @translate
-                    => '4',
-                'How many are three plus 2 (in number)?' // @translate
-                    => '5',
-                'How many are three plus 3 (in number)?' // @translate
-                    => '6',
-            ],
-            'contactus_append_resource_show' => [],
-            'contactus_append_items_browse' => false,
-        ],
         'block_settings' => [
             'contactUs' => [
                 'heading' => null,

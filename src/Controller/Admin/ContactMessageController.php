@@ -9,7 +9,6 @@ use Laminas\Mvc\Controller\AbstractActionController;
 use Laminas\View\Model\JsonModel;
 use Laminas\View\Model\ViewModel;
 use Omeka\Form\ConfirmForm;
-use Omeka\Stdlib\ErrorStore;
 
 class ContactMessageController extends AbstractActionController
 {
@@ -343,7 +342,7 @@ SQL;
         ];
         $tokens = $this->connection->executeQuery($sql, $bind, $types)->fetchAllKeyValue();
 
-        /** @see \ContactUs\Api\Representation\MessageRepresentation::zipFilepath() */
+        /* @see \ContactUs\Api\Representation\MessageRepresentation::zipFilepath() */
         foreach ($tokens as $id => $token) {
             $filename = $id . '.' . $token . '.zip';
             $filepath = $this->basePath . '/contactus/' . $filename;
@@ -359,66 +358,21 @@ SQL;
      *
      * @see https://github.com/omniti-labs/jsend
      *
-     * @param \Common\Stdlib\PsrMessage|string $message
+     * @param string $message
      * @param int $statusCode
-     * @param \Omeka\Stdlib\ErrorStore|array $messages
      * @return \Laminas\View\Model\JsonModel
      */
-    protected function returnError($message, ?int $statusCode = Response::STATUS_CODE_400, $messages = null): JsonModel
+    protected function returnError($message, ?int $statusCode = Response::STATUS_CODE_400): JsonModel
     {
-        $statusCode ??= Response::STATUS_CODE_400;
-
         $response = $this->getResponse();
         $response->setStatusCode($statusCode);
 
-        $translator = $this->translator();
-
-        if (is_array($messages) && count($messages)) {
-            foreach ($messages as &$msg) {
-                is_object($msg) ? $msg->setTranslator($translator) : $this->translate($msg);
-            }
-            unset($msg);
-        } elseif (is_object($messages) && $messages instanceof ErrorStore && $messages->hasErrors()) {
-            $msgs = [];
-            foreach ($messages->getErrors() as $key => $msg) {
-                $msgs[$key] = is_object($msg) ? $msg->setTranslator($translator) : $this->translate($msg);
-            }
-            $messages = $msgs;
-        } else {
-            $messages = [];
-        }
-
         $status = $statusCode >= 500 ? 'error' : 'fail';
 
-        $result = [];
-        $result['status'] = $status;
-
-        if (is_object($message)) {
-            $message->setTranslator($translator);
-        } elseif ($message) {
-            $message = $this->translate($message);
-        } elseif ($status === 'error') {
-            // A message is required for error.
-            if ($messages) {
-                $message = reset($messages);
-                if (count($messages) === 1) {
-                    $messages = [];
-                }
-            } else {
-                $message = $this->translate('An error occurred.'); // @translate;
-            }
-        }
-
-        // Normally, only in error, not fail, but a main message may be useful
-        // in any case.
-        if ($message) {
-            $result['message'] = $message;
-        }
-
-        // Normally, not in error.
-        if (count($messages)) {
-            $result['data'] = $messages;
-        }
+        $result = [
+            'status' => $status,
+            'message' => $this->translate($message),
+        ];
 
         return new JsonModel($result);
     }

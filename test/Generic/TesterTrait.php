@@ -26,13 +26,6 @@ trait TesterTrait
         return $this->services->get('Omeka\ApiManager');
     }
 
-    /** Mocked in Omeka\Test\TestCase
-    protected function getEntityManager(): \Doctrine\ORM\EntityManager
-    {
-        return $this->services->get('Omeka\EntityManager');
-    }
-     */
-
     protected function createUserAndLogin(
         $email,
         $role = 'guest',
