@@ -1,9 +1,11 @@
 Contact Us (module for Omeka S)
 ===============================
 
-> __New versions of this module and support for Omeka S version 3.0 and above
-> are available on [GitLab], which seems to respect users and privacy better
-> than the previous repository.__
+> [!NOTE]
+> This is a fork of https://github.com/Daniel-KM/Omeka-S-module-ContactUs
+>
+> Changes from the original module are documented in
+> [CHANGELOG.biblibre.md](CHANGELOG.biblibre.md)
 
 [Contact Us] is a module for [Omeka S] that allows to add a site page block with
 a "Contact us" form. The messages are sent by email to the admin and can be read
@@ -218,19 +220,16 @@ The feature to display a block to subscribe to a newsletter was implemented for
 the digital library of the city of [Saint-Quentin].
 
 
-[Contact Us]: https://gitlab.com/Daniel-KM/Omeka-S-module-ContactUs
+[Contact Us]: https://github.com/biblibre/omeka-s-module-ContactUs
 [Omeka S]: https://omeka.org/s
-[Generic]: https://gitlab.com/Daniel-KM/Omeka-S-module-Generic
 [Blocks Disposition]: https://gitlab.com/Daniel-KM/Omeka-S-module-BlocksDisposition
 [installing a module]: https://omeka.org/s/docs/user-manual/modules/#installing-modules
 [Selection]: https://gitlab.com/Daniel-KM/Omeka-S-module-Selection
 [Block Plus]: https://gitlab.com/Daniel-KM/Omeka-S-module-BlockPlus
-[module issues]: https://gitlab.com/Daniel-KM/Omeka-S-module-ContactUs/-/issues
+[module issues]: https://github.com/biblibre/omeka-s-module-ContactUs/issues
 [CeCILL v2.1]: https://www.cecill.info/licences/Licence_CeCILL_V2.1-en.html
 [GNU/GPL]: https://www.gnu.org/licenses/gpl-3.0.html
 [FSF]: https://www.fsf.org
 [OSI]: http://opensource.org
-[MIT]: http://opensource.org/licenses/MIT
 [Saint-Quentin]: https://saintquentinartethistoire.fr
-[GitLab]: https://gitlab.com/Daniel-KM
 [Daniel-KM]: https://gitlab.com/Daniel-KM "Daniel Berthereau"
