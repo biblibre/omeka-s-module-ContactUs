@@ -118,6 +118,16 @@ How many are one plus 1 (in number)? = 2', // @translate
                     'rows' => 5,
                 ],
             ])
+            ->add([
+                'name' => 'o:block[__blockIndex__][o:data][recaptcha]',
+                'type' => Element\Checkbox::class,
+                'options' => [
+                    'label' => 'Enable Google Recaptcha antispam for visitors', // @translate
+                ],
+                'attributes' => [
+                    'id' => 'contactus_recaptcha',
+                ],
+            ])
         ;
         if (class_exists('BlockPlus\Form\Element\TemplateSelect')) {
             $this

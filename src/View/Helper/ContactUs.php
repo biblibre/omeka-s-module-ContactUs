@@ -168,6 +168,7 @@ class ContactUs extends AbstractHelper
                 'check_answer' => $checkAnswer,
                 'user' => $user,
                 'contact' => $isContactAuthor ? 'author' : 'us',
+                'recaptcha' => $options['recaptcha'],
             ];
             $form = $this->formElementManager->get(ContactUsForm::class, $formOptions);
             $form
@@ -400,6 +401,7 @@ class ContactUs extends AbstractHelper
                 'check_answer' => $checkAnswer,
                 'user' => $user,
                 'contact' => $isContactAuthor ? 'author' : 'us',
+                'recaptcha' => $options['recaptcha'],
             ]);
             $form
                 ->setAttachFile($attachFile)
