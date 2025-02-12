@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## Unreleased
+
+- Prevent PHP warnings and errors in view helper
+
 ## [3.4.15+biblibre.1] - 2024-07-19
 
 - Removed dependency on module Common

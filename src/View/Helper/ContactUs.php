@@ -80,6 +80,13 @@ class ContactUs extends AbstractHelper
             'notify_recipients' => null,
             'contact' => 'us',
             'author_email' => null,
+            'to_author_subject' => '',
+            'to_author_body' => '',
+            'notify_body' => '',
+            'confirmation_newsletter_subject' => '',
+            'confirmation_newsletter_body' => '',
+            'confirmation_subject' => '',
+            'confirmation_body' => '',
         ];
         $this->mailer = $mailer;
         $this->api = $api;
@@ -606,6 +613,10 @@ SQL;
      */
     protected function fillMessage($message, array $placeholders): string
     {
+        if (!is_string($message)) {
+            return '';
+        }
+
         $replace = [];
         foreach ($placeholders as $placeholder => $value) {
             $replace['{' . $placeholder . '}'] = $value;
