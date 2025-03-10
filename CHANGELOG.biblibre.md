@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## Unreleased
+
+- Use dedicated event to add input filters to the site settings form. Not using
+  the dedicated event was causing problems if other modules added elements to
+  the form after this module
+
 ## [3.4.15+biblibre.2] - 2025-02-12
 
 - Prevent PHP warnings and errors in view helper

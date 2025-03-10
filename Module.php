@@ -570,6 +570,11 @@ class Module extends AbstractModule
             'form.add_elements',
             [$this, 'onSiteSettingsFormAddElements']
         );
+        $sharedEventManager->attach(
+            \Omeka\Form\SiteSettingsForm::class,
+            'form.add_input_filters',
+            [$this, 'onSiteSettingsFormAddInputFilters']
+        );
 
         // Display a warn before uninstalling.
         $sharedEventManager->attach(
@@ -936,8 +941,12 @@ How many are one plus 1 (in number)? = 2', // @translate
                 'value' => $settingValue('contactus_append_items_browse'),
             ],
         ]);
+    }
 
-        $inputFilter = $form->getInputFilter();
+    public function onSiteSettingsFormAddInputFilters(Event $event)
+    {
+        $inputFilter = $event->getParam('inputFilter');
+
         $inputFilter->add([
             'name' => 'contactus_append_resource_show',
             'required' => false,
