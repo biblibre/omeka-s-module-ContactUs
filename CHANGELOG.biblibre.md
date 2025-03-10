@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## Unreleased
+## [3.4.15+biblibre.3] - 2025-03-10
 
 - Use dedicated event to add input filters to the site settings form. Not using
   the dedicated event was causing problems if other modules added elements to
@@ -16,5 +16,6 @@ All notable changes to this project will be documented in this file.
 
 - Removed dependency on module Common
 
+[3.4.15+biblibre.3]: https://github.com/biblibre/omeka-s-module-ContactUs/releases/tag/v3.4.15+biblibre.3
 [3.4.15+biblibre.2]: https://github.com/biblibre/omeka-s-module-ContactUs/releases/tag/v3.4.15+biblibre.2
 [3.4.15+biblibre.1]: https://github.com/biblibre/omeka-s-module-ContactUs/releases/tag/v3.4.15+biblibre.1
