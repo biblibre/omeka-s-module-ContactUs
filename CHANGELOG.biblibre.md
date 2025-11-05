@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## Unreleased
+## [3.4.15+biblibre.4] - 2025-10-05
 
 - Fix batch deletion of contact messages
 
@@ -20,6 +20,7 @@ All notable changes to this project will be documented in this file.
 
 - Removed dependency on module Common
 
+[3.4.15+biblibre.4]: https://github.com/biblibre/omeka-s-module-ContactUs/releases/tag/v3.4.15+biblibre.4
 [3.4.15+biblibre.3]: https://github.com/biblibre/omeka-s-module-ContactUs/releases/tag/v3.4.15+biblibre.3
 [3.4.15+biblibre.2]: https://github.com/biblibre/omeka-s-module-ContactUs/releases/tag/v3.4.15+biblibre.2
 [3.4.15+biblibre.1]: https://github.com/biblibre/omeka-s-module-ContactUs/releases/tag/v3.4.15+biblibre.1
