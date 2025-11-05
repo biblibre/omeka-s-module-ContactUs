@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## Unreleased
+
+- Fix batch deletion of contact messages
+
 ## [3.4.15+biblibre.3] - 2025-03-10
 
 - Use dedicated event to add input filters to the site settings form. Not using

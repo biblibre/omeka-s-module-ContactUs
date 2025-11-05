@@ -90,7 +90,7 @@ $editRight = $userIsAllowed(MessageAdapter::class, 'update')
     <?php if ($userIsAllowed(MessageAdapter::class, 'batch-delete')): ?>
     <a href="#"
         class="button delete batch-actions sidebar-content"
-        data-sidebar-content-url="<?= $escape($url(null, ['action' => 'batch-delete-confirm'], true)) ?>"
+        data-sidebar-content-url="<?= $escape($url('admin/contact-message/default', ['action' => 'batch-delete-confirm'])) ?>"
         aria-label="<?= $escape($translate('Delete')) ?>"
         title="<?= $escape($translate('Delete')) ?>"><?= $escape($translate('Delete')) ?></a>
     <?php endif; ?>
